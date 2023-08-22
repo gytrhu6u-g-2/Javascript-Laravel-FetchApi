@@ -109,7 +109,6 @@ async function fetchPost()
             body: JSON.stringify(data)
         })
         const result = await response.json();
-        console.log(result);
         if (result.status == 202) {
             window.location.reload();
         }
@@ -228,4 +227,100 @@ async function fetchDelete()
     } catch (error) {
         alert(`通信に失敗しました。\r\n ${error}`);
     }
+}
+
+
+// SEARCH
+var search = document.querySelector("#search");
+search.addEventListener("click", function() {
+    investigationTableNum();
+    fetchSearch();
+})
+
+async function fetchSearch()
+{
+    var search__name = document.querySelector("#search__name");
+    var search__course = document.querySelector("#search__course");
+    var search__email = document.querySelector("#search__email");
+    var search__phone = document.querySelector("#search__phone");
+
+    var name = search__name == null ? "" : search__name.value; 
+    var course = search__course == null ? "" : search__course.value; 
+    var email = search__email == null ? "" : search__email.value; 
+    var phone = search__phone == null ? "" : search__phone.value; 
+    
+
+    var url = `http://127.0.0.1:8000/api/students/search`;
+
+    var data = {
+        name: name,
+        course: course,
+        email: email,
+        phone: phone
+    }
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
+            },
+            body: JSON.stringify(data)
+        })
+        const result = await response.json();
+        const items = result.student
+        makeSearchTable(items);
+    } catch (error) {
+        alert(`通信に失敗しました。\r\n ${error}`);
+    }
+
+   
+}
+
+// テーブルが存在すれば削除
+function investigationTableNum()
+{
+    var table = document.querySelectorAll('#search__table tr');
+
+    if(table.length > 0)
+    {
+        for(var i=0; i<table.length; i++)
+        {
+            table[i].remove();
+        }
+    }
+}
+
+
+// 検索後のテーブル追加
+function makeSearchTable(items)
+{
+    var table = document.querySelector('#search__table');
+    
+    items.map((item, index) => {
+        var tr = document.createElement('tr');
+
+        var idTd = document.createElement('td');
+        idTd.innerHTML = item.id;
+        tr.appendChild(idTd);
+
+        var nameTd = document.createElement('td');
+        nameTd.innerHTML = item.name;
+        tr.appendChild(nameTd);
+
+        var courseTd = document.createElement('td');
+        courseTd.innerHTML = item.course;
+        tr.appendChild(courseTd);
+
+        var emailTd = document.createElement('td');
+        emailTd.innerHTML = item.email;
+        tr.appendChild(emailTd);
+
+        var phoneTd = document.createElement('td');
+        phoneTd.innerHTML = item.phone;
+        tr.appendChild(phoneTd);
+
+        table.appendChild(tr);
+    });
 }
