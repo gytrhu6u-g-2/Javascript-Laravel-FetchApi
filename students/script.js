@@ -247,7 +247,7 @@ async function fetchSearch()
     var search__phone = document.querySelector("#search__phone");
 
     var name = search__name.value == "" ? "" : search__name.value; 
-    var course = search__course.value == "コースを選択してください" ? "" : search__course.value; 
+    var course = search__course.value == "コースを選択してください" || "" ? "" : search__course.value; 
     var email = search__email.value == "" ? "" : search__email.value; 
     var phone = search__phone.value == "" ? "" : search__phone.value; 
     
