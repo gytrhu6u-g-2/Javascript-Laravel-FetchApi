@@ -1,5 +1,7 @@
 // Rest API Git 【 https://github.com/gytrhu6u-g-2/Laravel-RestAPI.git 】
 
+// URL
+const public_url = "http://127.0.0.1:8000/api/students";
 
 // 画面起動時
 window.onload = function() {
@@ -9,7 +11,7 @@ window.onload = function() {
 // GET
 async function fetchGet()
 {
-    const url = "http://127.0.0.1:8000/api/students";
+    const url = public_url;
 
     const response = await fetch(url);
     const data = await response.json();
@@ -90,7 +92,7 @@ async function fetchPost()
     var email = document.querySelector('#email').value;
     var phone = document.querySelector('#phone').value;
 
-    const url = "http://127.0.0.1:8000/api/students";
+    const url = public_url;
 
     var data = {
         name: name,
@@ -129,7 +131,7 @@ update__id.onchange = event => {
 
 async function fetchGetId(id)
 {
-    const url = `http://127.0.0.1:8000/api/students/${id}`;
+    const url = `${public_url}/${id}`;
 
     const response = await fetch(url);
     const result = await response.json();
@@ -170,7 +172,7 @@ async function fetchPut()
 
     var id = Number(update__id);
 
-    var url = `http://127.0.0.1:8000/api/students/${id}/edit`
+    var url = `${public_url}/${id}/edit`
 
     var data = {
         name: update__name,
@@ -210,7 +212,7 @@ async function fetchDelete()
     var del_id = document.querySelector("#delete__id").value;
     var id = Number(del_id);
 
-    var url = `http://127.0.0.1:8000/api/students/${id}/delete`;
+    var url = `${public_url}/${id}/delete`;
 
     try {
         const response = await fetch(url, {
@@ -244,13 +246,13 @@ async function fetchSearch()
     var search__email = document.querySelector("#search__email");
     var search__phone = document.querySelector("#search__phone");
 
-    var name = search__name == null ? "" : search__name.value; 
-    var course = search__course == null ? "" : search__course.value; 
-    var email = search__email == null ? "" : search__email.value; 
-    var phone = search__phone == null ? "" : search__phone.value; 
+    var name = search__name.value == "" ? "" : search__name.value; 
+    var course = search__course.value == "コースを選択してください" ? "" : search__course.value; 
+    var email = search__email.value == "" ? "" : search__email.value; 
+    var phone = search__phone.value == "" ? "" : search__phone.value; 
     
 
-    var url = `http://127.0.0.1:8000/api/students/search`;
+    var url = `${public_url}/search`;
 
     var data = {
         name: name,
