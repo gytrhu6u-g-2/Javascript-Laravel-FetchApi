@@ -331,14 +331,14 @@ function reflectScore(result)
             else if (my_score < enemy_score)
             {
                 alert("You Lose");
-                window.location.reload();
-                // nextStage();
+                // window.location.reload();
+                nextStage();
             }
             else
             {
                 alert("Draw");
-                window.location.reload();
-                // nextStage();
+                // window.location.reload();
+                nextStage();
             }
         }
     }, 500);
