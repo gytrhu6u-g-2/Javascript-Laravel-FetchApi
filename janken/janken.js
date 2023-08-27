@@ -339,6 +339,7 @@ function reflectScore(result)
                 alert("Draw");
                 // window.location.reload();
                 nextStage();
+                console.log("aaaaa");
             }
         }
     }, 500);
